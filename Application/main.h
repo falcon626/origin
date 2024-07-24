@@ -120,7 +120,7 @@ struct ImGuiAppLog
 //============================================================
 class Application
 {
-// メンバ
+	// メンバ
 public:
 
 	// アプリケーション実行
@@ -128,7 +128,7 @@ public:
 
 	// アプリケーション終了
 	void End() { m_endFlag = true; }
-	int GetNowFPS() const { return static_cast<int>(m_fpsController.GetFPS()); }
+	int GetNowFPS() const { return m_fpsController.m_nowfps; }
 
 	// ImGui
 	ImGuiAppLog m_log;
@@ -137,7 +137,7 @@ private:
 
 	void KdBeginUpdate();
 	void PreUpdate();
-	void Update(const float deltaTime);
+	void Update();
 	void PostUpdate();
 	void KdPostUpdate();
 
@@ -164,20 +164,20 @@ private:
 	void ImGuiRelease();
 
 	// FPSコントローラー
-	FlFPSController m_fpsController;
+	KdFPSController m_fpsController;
 
 	// ゲーム終了フラグ trueで終了する
 	bool			m_endFlag = false;
 
-//=====================================================
-// シングルトンパターン
-//=====================================================
+	//=====================================================
+	// シングルトンパターン
+	//=====================================================
 private:
 
 	Application() {}
 
 public:
-	static Application &Instance(){
+	static Application& Instance() {
 		static Application Instance;
 		return Instance;
 	}

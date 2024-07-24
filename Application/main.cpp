@@ -6,7 +6,7 @@
 // エントリーポイント
 // アプリケーションはこの関数から進行する
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-int WINAPI WinMain(_In_ HINSTANCE, _In_opt_  HINSTANCE, _In_ LPSTR , _In_ int)
+int WINAPI WinMain(_In_ HINSTANCE, _In_opt_  HINSTANCE, _In_ LPSTR, _In_ int)
 {
 	// メモリリークを知らせる
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -66,10 +66,10 @@ void Application::PreUpdate()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // アプリケーション更新
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void Application::Update(const float deltaTime)
+void Application::Update()
 {
 	KdInputManager::Instance().Update();
-	SceneManager::Instance().Update(deltaTime);
+	SceneManager::Instance().Update();
 	KdEffekseerManager::GetInstance().Update();
 }
 
@@ -278,7 +278,7 @@ void Application::Execute()
 		KdBeginUpdate();
 		{
 			PreUpdate();
-			Update(m_fpsController.GetDeltaTime());
+			Update();
 			PostUpdate();
 		}
 		KdPostUpdate();
@@ -388,12 +388,10 @@ void Application::ImGuiProcess()
 	// ログウィンドウ
 	m_log.Draw("Log Window");
 
-	m_log.AddLog("%f\n", m_fpsController.GetDeltaTime());
-
 	//=====================================================
 	// ログ出力 ・・・ AddLog("～") で追加
 	//=====================================================
-	
+
 	//m_log.AddLog("hello world\n");
 
 	//=====================================================
